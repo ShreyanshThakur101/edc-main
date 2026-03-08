@@ -46,7 +46,7 @@ const ESummit = () => {
 
       {/* FIXED INFRASTRUCTURE: Background Grid */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-30">
-        <Starfield gridColor="#8A9BB4" speed={0.15} />
+        {/* <Starfield gridColor="#8A9BB4" speed={0.15} /> */}
       </div>
 
       <div className="container mx-auto px-4 pt-40 pb-20 relative z-10">
@@ -63,7 +63,7 @@ const ESummit = () => {
           </div>
           
           <h1 className="font-heading text-6xl md:text-8xl lg:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#D6D6DB] to-[#667B98] mb-8 tracking-tighter">
-            E-SUMMIT
+            E-SUMMIT PUNE
           </h1>
           
           <p className="text-xl md:text-2xl text-[#AFB7C7] max-w-3xl mx-auto mb-12 leading-relaxed font-light">

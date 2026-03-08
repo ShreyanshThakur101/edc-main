@@ -1,93 +1,105 @@
-import { motion, useMotionValue } from 'framer-motion';
-import { Mail, Phone, Shield, Activity } from 'lucide-react';
+import { useRef, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, Phone, Shield, Activity, ArrowDown } from 'lucide-react';
+import Navbar from '@/components/Navbar';
 
-// Import team photos
-import gayatriPhoto from '../assets/team/gayatri.jpg';
-import sanskritiPhoto from '../assets/team/sanskriti.jpg';
-import akshatPhoto from '../assets/team/akshat.jpg';
-import yashPhoto from '../assets/team/yash.jpg';
+/* ================= ASSETS ================= */
+import logo from '../assets/logo.png'; // For the preloader
+
+import gayatriPhoto from '../assets/team/gayatri.png';
+import sanskritiPhoto from '../assets/team/sanskriti.png';
+import akshatPhoto from '../assets/team/akshat.png';
+import yashPhoto from '../assets/team/yash.png';
 import pujanPhoto from '../assets/team/pujan.png';
-import adityaPhoto from '../assets/team/aditya.jpg';
-import shreyasPhoto from '../assets/team/shreyas.jpg';
-import ayushPhoto from '../assets/team/Ayush_G.jpg';
-import sanikaPhoto from '../assets/team/Sanika Piraji .jpg';
-import utkarshPhoto from '../assets/team/Utkarsh Sisodiya .jpg';
-import finance from '../assets/team/fianance.jpg';
-import sayaliPhoto from '../assets/team/Sayali Mashale .jpg';
-import cor from '../assets/team/Anshul.jpg';
-import cor2 from '../assets/team/we.jpg';
+import adityaPhoto from '../assets/team/aditya.png';
+import ayushPhoto from '../assets/team/Ayush_G.png';
+import sanikaPhoto from '../assets/team/Sanika_Piraji.png';
+import utkarshPhoto from '../assets/team/we.png';
+import sayaliPhoto from '../assets/team/Sayali_Mashale.png';
+import cor from '../assets/team/Anshul.png';
+import finance from '../assets/team/fianance.png';
+import jiyaPhoto from '../assets/team/Jiya_Rathod-removebg-preview.png';
+import shlokPhoto from '../assets/team/shlok.png';
+import ritikaPhoto from '../assets/team/IMG-20251001-WA0010-removebg-preview.png';
+import aditiPhoto from '../assets/team/aditi.png';
+import madhuraPhoto from '../assets/team/Madhura_Veer-removebg-preview.png';
+import utPhoto from '../assets/team/Utkarsh_Sisodiya_-removebg-preview.png';
+import labhPhoto from '../assets/team/labhesh.png';
+import rajveePhoto from '../assets/team/rajvee.png';
+import siddhiPhoto from '../assets/team/siddhi.png';
+import ishPhoto from '../assets/team/ish.png';
+import ashPhoto from '../assets/team/ash.png';
+import rohitPhoto from '../assets/team/rohit.png';
+import praPhoto from '../assets/team/pra.png';
 
-const AvengersCard = ({ name, role, email, phone, linkedinUrl, image }) => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const handleMouseMove = (e) => {
-    const { left, top } = e.currentTarget.getBoundingClientRect();
-    mouseX.set(e.clientX - left);
-    mouseY.set(e.clientY - top);
-  };
-
+/* ================= CARD COMPONENT ================= */
+/* ================= CARD COMPONENT ================= */
+const AvengersCard = ({
+  name,
+  role,
+  email,
+  phone,
+  linkedinUrl = "https://linkedin.com",
+  image,
+  focusY = '20%',
+}) => {
   return (
     <motion.div
-      onMouseMove={handleMouseMove}
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      whileHover={{ y: -5 }}
-      viewport={{ once: true, margin: "-50px" }}
-      className="relative group p-[1px] bg-cyan-950/30 overflow-hidden rounded-bl-3xl rounded-tr-3xl border border-cyan-500/20 hover:border-cyan-400/60 transition-all duration-500 w-full"
+      whileHover={{ y: -6 }}
+      viewport={{ once: true }}
+      className="relative group p-[1px] bg-cyan-950/30 rounded-bl-3xl rounded-tr-3xl border border-cyan-500/20 hover:border-cyan-400/60 transition-all duration-500 h-[460px]"
     >
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.05)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none opacity-20" />
-      <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-cyan-500 opacity-50" />
-      <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-cyan-500 opacity-50" />
-
-      <div className="relative z-10 p-5 bg-slate-950/80 backdrop-blur-xl h-full flex flex-col">
-        <div className="relative w-full aspect-square mb-4 overflow-hidden border border-cyan-500/30 group-hover:border-cyan-400 transition-colors">
-          <div className="absolute inset-0 z-20 pointer-events-none group-hover:bg-cyan-500/10 transition-all" />
-          
-          <motion.div 
-            style={{ x: mouseX, y: mouseY, translateX: "-50%", translateY: "-50%" }}
-            className="absolute z-30 w-10 h-10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden sm:block"
-          >
-            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-cyan-400" />
-            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-cyan-400" />
-          </motion.div>
-
+      <div className="relative z-10 p-5 bg-slate-950/80 backdrop-blur-xl flex flex-col h-full">
+        {/* ... Image section remains same ... */}
+        <div className="relative w-full aspect-square mb-4 overflow-hidden border border-cyan-500/30">
           {image ? (
-            <img 
-              src={image} 
-              alt={name} 
-              /* REMOVED grayscale and group-hover:grayscale-0 */
-              className="w-full h-full object-cover contrast-125 transition-all duration-700" 
-            />
+            <>
+              <img
+                src={image}
+                alt={name}
+                className="w-full h-full object-cover contrast-110"
+                style={{ objectPosition: `50% ${focusY}` }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0a0c10]/40" />
+            </>
           ) : (
             <div className="w-full h-full bg-slate-900 flex items-center justify-center">
-               <Shield className="w-12 h-12 text-cyan-900" />
+              <Shield className="w-12 h-12 text-cyan-900" />
             </div>
           )}
         </div>
 
-        <div className="space-y-1 flex-grow">
+        {/* CONTENT */}
+        <div className="flex-grow space-y-1">
           <div className="flex items-center gap-2">
             <Activity size={10} className="text-cyan-500 animate-pulse" />
-            <span className="text-[9px] font-mono text-cyan-500/70 tracking-tighter uppercase">Link Active</span>
+            <span className="text-[9px] font-mono text-cyan-500/70 uppercase">link active</span>
           </div>
-          <h3 className="text-lg font-black text-white uppercase tracking-tighter group-hover:text-cyan-300 transition-colors leading-tight">
-            {name}
-          </h3>
-          <div className="inline-block py-0.5 px-2 bg-cyan-500/10 border border-cyan-500/30 text-[8px] font-mono text-cyan-400 uppercase tracking-widest">
+          <h3 className="text-lg font-black uppercase">{name}</h3>
+          
+          {/* UPDATED FONT SIZE HERE */}
+          <span className="inline-block px-2 py-0.5 text-[13px] font-mono font-bold bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 uppercase tracking-wider">
             {role}
-          </div>
+          </span>
         </div>
 
+        {/* ... Footer section remains same ... */}
         <div className="mt-4 grid grid-cols-4 gap-1">
-          <a href={`mailto:${email}`} className="col-span-1 h-8 flex items-center justify-center border border-cyan-500/20 hover:bg-cyan-500 hover:text-black transition-all">
+          <a href={`mailto:${email}`} className="h-8 flex items-center justify-center border border-cyan-500/20 hover:bg-cyan-500 hover:text-black transition-colors">
             <Mail size={12} />
           </a>
-          <a href={`tel:${phone}`} className="col-span-1 h-8 flex items-center justify-center border border-cyan-500/20 hover:bg-cyan-500 hover:text-black transition-all">
+          <a href={`tel:${phone}`} className="h-8 flex items-center justify-center border border-cyan-500/20 hover:bg-cyan-500 hover:text-black transition-colors">
             <Phone size={12} />
           </a>
-          <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="col-span-2 h-8 flex items-center justify-center gap-1 border border-cyan-500/20 hover:bg-cyan-500 hover:text-black transition-all font-mono text-[8px] uppercase">
-             CONNECT
+          <a 
+            href={linkedinUrl || "https://linkedin.com"} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="col-span-2 h-8 flex items-center justify-center border border-cyan-500/20 hover:bg-cyan-500 hover:text-black text-[8px] font-mono uppercase transition-colors"
+          >
+            connect
           </a>
         </div>
       </div>
@@ -95,105 +107,144 @@ const AvengersCard = ({ name, role, email, phone, linkedinUrl, image }) => {
   );
 };
 
-const Team = () => {
+/* ================= MAIN PAGE ================= */
+export default function Team() {
+  const containerRef = useRef(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const teamSections = [
-    { title: 'The Leaders', members: [
-      { name: 'Rohit Dane', role: 'Convener', email: 'rohit.dane23@vit.edu', phone: '+91 8668816853', linkedinUrl: '#' },
-      { name: 'Ishawar Borade', role: 'Honorary Convener', email: 'ishawar.borade22@vit.edu', phone: '+91 9156834407', linkedinUrl: '#' }
-    ]},
-    { title: 'The Advisors', members: [
-      { name: 'Ashlesha Wagh', role: 'Chief Advisor', email: 'ashlesha.wagh22@vit.edu', phone: '+91 9422088506', linkedinUrl: '#' },
-      { name: 'Pratik Jadhav', role: 'Chief Advisor', email: 'pratik.jadhav22@vit.edu', phone: '+91 8080897812', linkedinUrl: '#' },
-    ]},
-    { title: 'The Chiefs', members: [
-      { name: 'Siddhi Chollangi', role: 'Chief of Branding', email: 'siddhi.chollangi23@vit.edu', phone: '+91 9226270324', linkedinUrl: '#' },
-      { name: 'Rushabh Mane', role: 'Chief of Management', email: 'rushabh.mane23@vit.edu', phone: '+91 9175377652', linkedinUrl: '#' },
-      { name: 'Rajvee Pardeshi', role: 'Chief of Relations', email: 'rajvee.pardeshi23@vit.edu', phone: '+91 7218122005', linkedinUrl: '#' },
-    ]},
-    { title: 'Liasons', members: [
-      { name: 'Labhesh Pahade', role: 'Liaison of Branding', email: 'labhesh.pahade23@vit.edu', phone: '+91 9421340121', linkedinUrl: '#' },
-      { name: 'Atharva Khode', role: 'Liaison of Management', email: 'atharva.khode23@vit.edu', phone: '+91 8624004106', linkedinUrl: '#' },
-      { name: 'Aditya Inamdar', role: 'Liaison of Relations', email: 'aditya.inamdar23@vit.edu', phone: '+91 7410536280', linkedinUrl: '#' },
-    ]},
-    { title: 'The Core Team', members: [
-      { name: 'Sayali Mashale', role: 'Aesthetics Secretary', email: 'sayali.mashale24@vit.edu', phone: '+91 9970891426', image: sayaliPhoto },
-      { name: 'Anshul Patidar', role: 'CR Secretary', email: 'patidar.anshul24@vit.edu', phone: '+91 8770645003', image: cor },
-      { name: 'Ayush Deshmukh', role: 'CR Secretary', email: 'avush.deshmukh24@vit.edu', phone: '+91 9304857932', image: cor2 },
-      { name: 'Jiya Rathod', role: 'Execution Secretary', email: 'jiya.rathod24@vit.edu', phone: '+91 9272116336' },
-      { name: 'Gaurang Bagwe', role: 'Secretary', email: 'gaurang.bagwe24@vit.edu', phone: '+91 8459250314', image:finance },
-      { name: 'Akshat Mutha', role: 'Secretary', email: 'akshat.mutha24@vit.edu', phone: '+91 7972108827', image: akshatPhoto },
-      { name: 'Gayatri Dhikale', role: 'Marketing Secretary', email: 'gayatri.dhikale24@vit.edu', phone: '+91 8605573593', image: gayatriPhoto },
-      { name: 'Sanskriti Dhakar', role: 'Marketing Secretary', email: 'sanskriti.dhakar24@vit.edu', phone: '+91 9981949981', image: sanskritiPhoto },
-      { name: 'Aditi Kolhapure', role: 'Design Secretary', email: 'aditi.kolhapure24@vit.edu', phone: '+91 8484808122' },
-      { name: 'Anuj Pol', role: 'Design Secretary', email: 'anuj.pol24@vit.edu', phone: '+91 7020546889' },
-      { name: 'Omkar Patil', role: 'Design Secretary', email: 'niwas.omkar24@vit.edu', phone: '+91 9026233081' },
-      { name: 'Ayush Gurav', role: 'Operations Secretary', email: 'ayush.gurav23@vit.edu', phone: '+91 8999281762', image: ayushPhoto },
-      { name: 'Sanika Piraji', role: 'PR Secretary', email: 'sanika.piraji241@vit.edu', phone: '+91 9881616930', image: sanikaPhoto },
-      { name: 'Utkarsh Sisodiya', role: 'PR Secretary', email: 'utkarsh.sisodiya24@vit.edu', phone: '+91 9503326999', image: utkarshPhoto },
-      { name: 'Ritika Navghare', role: 'Media Secretary', email: 'ritika.navghare24@vit.edu', phone: '+91 9370170173' },
-      { name: 'Shlok Borade', role: 'Media Secretary', email: 'shlok.borade24@vit.edu', phone: '+91 9325084237' },
-      { name: 'Pujan Sonani', role: 'Sponsorship Secretary', email: 'pujan.sonani24@vit.edu', phone: '+91 9099282768', image: pujanPhoto },
-      { name: 'Yash Nalawade', role: 'Sponsorship Secretary', email: 'yash.nalawade241@vit.edu', phone: '+91 9607484973', image: yashPhoto },
-      { name: 'Madhura Veer', role: 'Connect Secretary', email: 'madhura.veer24@vit.edu', phone: '+91 9527963484' },
-      { name: 'Manas Parikh', role: 'Connect Secretary', email: 'manas.parikh24@vit.edu', phone: '+91 9529767923' },
-      { name: 'Aditya Kale', role: 'Website Secretary', email: 'aditya.kale23@vit.edu', phone: '+91 8766015040', image: adityaPhoto },
-      { name: 'Shreyas Kudale', role: 'Website Secretary', email: 'shreyas.kudale23@vit.edu', phone: '+91 9657550055', image: shreyasPhoto },
-    ]},
+    {
+      title: 'The Leaders',
+      members: [
+        { name: 'Rohit Dane', role: 'Convener', email: 'rohit.dane23@vit.edu', phone: '+918668816853', image: rohitPhoto, linkedinUrl: "https://www.linkedin.com/in/rohit-dane-01a205288/" },
+        { name: 'Ishawar Borade', role: 'Honorary Convener', email: 'ishawar.borade22@vit.edu', phone: '+919156834407', image: ishPhoto },
+      ],
+    },
+    {
+      title: 'The Advisors',
+      members: [
+        { name: 'Ashlesha Wagh', role: 'Chief Advisor', email: 'ashlesha.wagh22@vit.edu', phone: '+919422088506', image: ashPhoto, linkedinUrl: "https://www.linkedin.com/in/ashlesha-wagh-14896125b/" },
+        { name: 'Pratik Jadhav', role: 'Chief Advisor', email: 'pratik.jadhav22@vit.edu', phone: '+918080897812', image: praPhoto, linkedinUrl: "https://www.linkedin.com/in/pratik-jadhav-530488258/" },
+      ],
+    },
+    {
+      title: 'Chief And Liasons Of Branding',
+      members: [
+        { name: 'Siddhi Chollangi', role: 'Chief Branding', email: 'siddhi.chollangi23@vit.edu', phone: '+919226270324', image: siddhiPhoto, linkedinUrl: "https://www.linkedin.com/in/siddhi-chollangi-70b334288/" },
+        { name: 'Labhesh Pahade', role: 'Liasons Branding', email: 'labhesh.pahade23@vit.edu', phone: '+919421340121', image: labhPhoto, linkedinUrl: "https://www.linkedin.com/in/labhesh-pahade-069349288/" },
+      ],
+    },
+    {
+      title: 'Chief And Liasons Of Management',
+      members: [
+        { name: 'Rushabh Mane', role: 'Chief Management', email: 'rushabh.mane23@vit.edu', phone: '+919175377652', linkedinUrl: "https://www.linkedin.com/in/rushabh-mane-20601b2a7/" },
+        { name: 'Atharva Khode', role: 'Liasons Management', email: 'atharva.khode23@vit.edu', phone: '+918624004106', linkedinUrl: "https://www.linkedin.com/in/atharva-khode-261684293/" },
+      ],
+    },
+    {
+      title: 'Chief And Liasons Of Relations',
+      members: [
+        { name: 'Rajvee Pardeshi', role: 'Chief Relations', email: 'rajvee.pardeshi23@vit.edu', phone: '+917218122005', image: rajveePhoto, linkedinUrl: "https://www.linkedin.com/in/rajveepardeshi/" },
+        { name: 'Aditya Inamdar', role: 'Liasons Relations', email: 'aditya.inamdar23@vit.edu', phone: '+917410536280', linkedinUrl: "https://www.linkedin.com/in/aditya-inamdar-846a11280/" },
+      ],
+    },
+    {
+      title: 'The Core Team',
+      members: [
+        { name: 'Sayali Mashale', role: 'Aesthetics Secretary', email: 'sayali.mashale24@vit.edu', phone: '+919970891426', image: sayaliPhoto, linkedinUrl: "https://www.linkedin.com/in/sayali-mashale-57976a345/" },
+        { name: 'Anshul Patidar', role: 'Corporate Relations Secretary', email: 'patidar.anshul24@vit.edu', phone: '+918770645003', image: cor, linkedinUrl: "https://www.linkedin.com/in/anshul-patidar2006/" },
+        { name: 'Ayush Deshmukh', role: 'Corporate Relations Secretary', email: 'ayush.deshmukh24@vit.edu', phone: '+919304857932', image: utkarshPhoto, linkedinUrl: "https://www.linkedin.com/in/ayushdeshmukh43/" },
+        { name: 'Jiya Rathod', role: 'Event Execution Secretary', email: 'jiya.rathod24@vit.edu', phone: '+919272116336', image: jiyaPhoto, linkedinUrl: "https://www.linkedin.com/in/jiya-rathod-b289bb379/" },
+        { name: 'Gaurang Bagwe', role: 'Finance Secretary', email: 'gaurang.bagwe24@vit.edu', phone: '+918459250314', image: finance, linkedinUrl: "https://www.linkedin.com/in/gaurang-bagwe-349085327/" },
+        { name: 'Akshat Mutha', role: 'Marketing Secretary', email: 'akshat.mutha24@vit.edu', phone: '+917972108827', image: akshatPhoto },
+        { name: 'Gayatri Dhikale', role: 'Marketing Secretary', email: 'gayatri.dhikale24@vit.edu', phone: '+918605573593', image: gayatriPhoto },
+        { name: 'Sanskriti Dhakar', role: 'Marketing Secretary', email: 'sanskriti.dhakar24@vit.edu', phone: '+919981949981', image: sanskritiPhoto, linkedinUrl: "https://www.linkedin.com/in/sanskriti-dhakar/" },
+        { name: 'Aditi Kolhapure', role: 'Multimedia and Design Secretary', email: 'aditi.kolhapure24@vit.edu', phone: '+918484808122', image: aditiPhoto, linkedinUrl: "https://www.linkedin.com/in/aditi-kolhapure-0a6655284/" },
+        { name: 'Anuj Pol', role: 'Multimedia and Design Secretary', email: 'anuj.pol24@vit.edu', phone: '+917020546889', linkedinUrl: "https://www.linkedin.com/in/anuj-pol-b40436326/" },
+        { name: 'Ayush Gurav', role: 'Operations Secretary', email: 'ayush.gurav23@vit.edu', phone: '+918999281762', image: ayushPhoto, linkedinUrl: "https://www.linkedin.com/in/ayush-gurav-3151bb296/" },
+        { name: 'Sanika Piraji', role: 'Public Relations Secretary', email: 'sanika.piraji241@vit.edu', phone: '+919881616930', image: sanikaPhoto },
+        { name: 'Utkarsh Sisodiya', role: 'Public Relations Secretary', email: 'utkarsh.sisodiya24@vit.edu', phone: '+919503326999', image: utPhoto, linkedinUrl: "https://www.linkedin.com/in/utkarsh-sisodiya-97726a342/" },
+        { name: 'Ritika Navghare', role: 'Research and Media Secretary', email: 'ritika.navghare24@vit.edu', phone: '+919370170173', image: ritikaPhoto, linkedinUrl: "https://www.linkedin.com/in/ritika-navghare-8b5b9331b/" },
+        { name: 'Shlok Borade', role: 'Research and Media Secretary', email: 'shlok.borade24@vit.edu', phone: '+919325084237', image: shlokPhoto, linkedinUrl: "https://www.linkedin.com/in/shlok-borade-7a91ba344/" },
+        { name: 'Pujan Sonani', role: 'Sponsorship Secretary', email: 'pujan.sonani24@vit.edu', phone: '+919099282768', image: pujanPhoto, linkedinUrl: "https://www.linkedin.com/in/pujan-sonani-7538a230b/" },
+        { name: 'Yash Nalawade', role: 'Sponsorship Secretary', email: 'yash.nalawade241@vit.edu', phone: '+919607484973', image: yashPhoto, linkedinUrl: "https://www.linkedin.com/in/yash-nalawade-893313338/" },
+        { name: 'Manas Parikh', role: 'Startup Connect Secretary', email: 'manas.parikh24@vit.edu', phone: '+919529767923', linkedinUrl: "https://www.linkedin.com/in/manas-parikh-4252593a8/" },
+        { name: 'Madhura Veer', role: 'Startup Connect Secretary', email: 'madhura.veer24@vit.edu', phone: '+919527963484', image: madhuraPhoto, linkedinUrl: "https://www.linkedin.com/in/madhura-veer-2184b6372/" },
+        { name: 'Aditya Kale', role: 'Website Secretary', email: 'aditya.kale23@vit.edu', phone: '+918766015040', image: adityaPhoto, linkedinUrl: "https://www.linkedin.com/in/aditya-kale-750511285/" },
+      ],
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-[#020617] text-white">
-      <div className="fixed inset-0 pointer-events-none opacity-40 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] sm:w-[800px] sm:h-[800px] border-[1px] border-cyan-500/10 rounded-full animate-[spin_60s_linear_infinite]" />
-      </div>
-
-      <div className="container mx-auto px-4 pt-24 pb-20 relative">
-        <header className="mb-20 text-center">
-          <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} className="inline-flex items-center justify-center w-16 h-16 border-2 border-cyan-500 rounded-full mb-6">
-             <Shield className="w-8 h-8 text-cyan-500" />
+    <>
+      {/* PRELOADER */}
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            key="preloader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#020617]"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+              className="relative"
+            >
+              <div className="absolute inset-0 bg-cyan-500 blur-3xl opacity-20 animate-pulse"></div>
+              <img src={logo} alt="EDC Logo" className="w-32 h-32 md:w-48 md:h-48 object-contain relative z-10" />
+            </motion.div>
           </motion.div>
-          <h1 className="text-4xl sm:text-7xl font-black italic uppercase text-transparent bg-clip-text bg-gradient-to-b from-white to-cyan-800">
-            Team Assemble
-          </h1>
-          <p className="text-cyan-500 font-mono text-xs tracking-widest mt-4 uppercase">Operational Command 2025-26</p>
-        </header>
+        )}
+      </AnimatePresence>
 
-        <div className="space-y-24">
+      <div ref={containerRef} className="bg-[#020617] text-white min-h-screen">
+        <Navbar />
+
+        <section className="h-screen flex items-center justify-center">
+          <div className="text-center px-6">
+            <span className="text-cyan-500 tracking-[0.5em] uppercase text-xs block mb-4">operational command</span>
+            <h1 className="text-7xl md:text-9xl font-black bg-clip-text text-transparent bg-gradient-to-b from-white to-cyan-800 mb-6">OUR TEAM.</h1>
+            <p className="text-cyan-200/70 max-w-2xl mx-auto">the people who turn vision into execution.</p>
+            <ArrowDown className="mx-auto mt-12 text-cyan-500 animate-bounce" size={32} />
+          </div>
+        </section>
+
+        <div className="container mx-auto px-4 pb-24 space-y-24">
           {teamSections.map((section) => (
-            <section key={section.title}>
-              <div className="flex items-center gap-3 mb-12">
-                <div className="h-px flex-1 bg-cyan-900" />
-                <h2 className="text-xl sm:text-3xl font-black italic uppercase tracking-widest text-cyan-400">
-                  {section.title}
-                </h2>
-                <div className="h-px flex-1 bg-cyan-900" />
-              </div>
+            <section key={section.title} className="flex flex-col items-center">
+              <h2 className="text-3xl font-black uppercase text-cyan-400 mb-12">{section.title}</h2>
 
-              {/* Conditional Layout: Grid for Core Team, Flex-Centered for others */}
-              <div className={
-                section.title === 'The Core Team' 
-                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" 
-                : "flex flex-wrap justify-center gap-6"
-              }>
+              <div
+                className={
+                  section.title === 'The Leaders'
+                    ? 'flex flex-col items-center gap-12' 
+                    : 'flex flex-wrap justify-center gap-6 max-w-7xl'
+                }
+              >
                 {section.members.map((member) => (
-                  <div key={member.name} className={section.title === 'The Core Team' ? "w-full" : "w-full max-w-[280px]"}>
-                    <AvengersCard {...member} />
+                  <div key={member.name} className="w-[320px]">
+                    <AvengersCard 
+                      name={member.name}
+                      role={member.role}
+                      email={member.email}
+                      phone={member.phone}
+                      image={member.image}
+                      linkedinUrl={member.linkedinUrl}
+                    />
                   </div>
                 ))}
               </div>
             </section>
           ))}
         </div>
-
-        <motion.div className="mt-32 p-8 border-2 border-cyan-500 bg-slate-950 text-center relative">
-          <h2 className="text-3xl sm:text-6xl font-black italic uppercase text-white mb-6">Access the Initiative</h2>
-          <a href="/contact" className="inline-block px-8 py-4 bg-cyan-500 text-black font-black uppercase hover:bg-white transition-all transform skew-x-[-12deg]">
-            Deploy Now
-          </a>
-        </motion.div>
       </div>
-    </div>
+    </>
   );
-};
-
-export default Team;
+}

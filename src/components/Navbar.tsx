@@ -36,7 +36,7 @@
       { path: "/events", label: "Events" },
       { path: "/team", label: "Team" },
       { path: "/sponsors", label: "Sponsors" },
-      { path: "/esummit", label: "Esummit '25" },
+      // { path: "/esummit", label: "Esummit '25" },
       { path: "/gallery", label: "Gallery" },
       { path: "/contact", label: "Contact" },
     ];

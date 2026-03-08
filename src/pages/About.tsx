@@ -4,6 +4,7 @@ import { ArrowDown, Target, Eye, Rocket, Zap } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import clg from '../assets/clg.jpg'
 import Starfield from '../components/ui/Starfield'; // Using your updated Grid/Starfield file
+import { Link } from 'react-router-dom';
 
 // Glacier Palette Constants
 const COLORS = {
@@ -35,7 +36,7 @@ export default function AboutPage() {
 
       {/* FIXED BACKGROUND GRID */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
-        <Starfield gridColor="#8A9BB4" speed={0.2} />
+        {/* <Starfield gridColor="#8A9BB4" speed={0.2} /> */}
       </div>
 
       {/* HERO SECTION: The "Diving" Effect */}
@@ -71,7 +72,7 @@ export default function AboutPage() {
       <section className="py-20 relative z-10">
         <div className="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
-            { label: 'Years of Legacy', val: '13+' },
+            { label: 'Years of Legacy', val: '12+' },
             { label: 'Startups Connected', val: '100+' },
             { label: 'Annual Events', val: '5+' },
             { label: 'Student Reach', val: '5000+' },
@@ -161,13 +162,15 @@ export default function AboutPage() {
       <footer className="py-20 border-t border-[#8A9BB4]/10 text-center relative overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-[#2C6EA1] to-transparent opacity-50" />
         <h2 className="text-[#D6D6DB] font-black text-2xl mb-4">READY TO BREAK THE ICE?</h2>
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="px-8 py-3 bg-[#2C6EA1] text-white rounded-full font-bold shadow-[0_0_30px_rgba(44,110,161,0.4)]"
-        >
-          Join V-EDC
-        </motion.button>
+        <Link to="/contact">
+  <motion.button
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    className="px-8 py-3 bg-[#2C6EA1] text-white rounded-full font-bold shadow-[0_0_30px_rgba(44,110,161,0.4)]"
+  >
+    Join V-EDC
+  </motion.button>
+</Link>
         <p className="mt-12 text-[#8A9BB4] text-[10px] tracking-[0.4em] uppercase">VIT Pune • Innovate. Empower. Lead.</p>
       </footer>
     </div>

@@ -3,132 +3,153 @@ import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 
-// Importing Starfield (which now contains your Grid code)
-import Starfield from './ui/Starfield'; 
-import logo from "@/assets/logo.png";
+import DarkVeil from '@/components/DarkVeil';
+import logo from '@/assets/logo.png';
 
 const LOGO_SIZES = {
   mobile: 'h-20',
-  sm: 'h-24',
   md: 'h-32',
-  lg: 'h-36',
-  xl: 'h-40',
 };
 
 const Hero = () => {
-  const logoRef = useRef(null);
-  const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const buttonsRef = useRef(null);
+  const logoRef = useRef<HTMLImageElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const subtitleRef = useRef<HTMLParagraphElement | null>(null);
+  const buttonsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const tl = gsap.timeline();
 
-    if (logoRef.current) {
-      tl.fromTo(logoRef.current, 
-        { opacity: 0, scale: 0.8, y: -30 }, 
-        { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0.2 }
+    tl.fromTo(
+      logoRef.current,
+      { opacity: 0, scale: 0.85, y: -30 },
+      { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: 'power3.out' }
+    )
+      .fromTo(
+        titleRef.current,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
+        '-=0.6'
+      )
+      .fromTo(
+        subtitleRef.current,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+        '-=0.6'
+      )
+      .fromTo(
+        buttonsRef.current?.children,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.15 },
+        '-=0.4'
       );
-    }
-
-    if (titleRef.current) {
-      gsap.fromTo(titleRef.current, 
-        { opacity: 0, y: 50 }, 
-        { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.5 }
-      );
-    }
-
-    if (subtitleRef.current) {
-      gsap.fromTo(subtitleRef.current, 
-        { opacity: 0, y: 30 }, 
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.8 }
-      );
-    }
-
-    if (buttonsRef.current) {
-      gsap.fromTo(buttonsRef.current.children, 
-        { opacity: 0, y: 30 }, 
-        { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out', delay: 1.1 }
-      );
-    }
   }, []);
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden font-['Poppins']">
-      
-      {/* BACKGROUND LAYER */}
-      <div className="absolute inset-0 z-0 w-full h-full bg-[#0a0c10]"> 
-        {/* Using the component you updated with Grid logic */}
-        <Starfield 
-          gridColor="#8A9BB4" // Steel Blue from your palette
-          speed={0.3} 
-        />
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden font-['Poppins']"
+    >
+      {/* 🧊 GLACIER BACKGROUND */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#0a0c10] via-[#16212e] to-[#0a0c10]">
+        <div className="absolute inset-0 opacity-[0.35]">
+          <DarkVeil
+            speed={0.4}
+            hueShift={210}
+            noiseIntensity={0.02}
+            warpAmount={0.8}
+          />
+        </div>
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="space-y-6 sm:space-y-8 md:space-y-10">
-          
-          <div className="flex justify-center mb-6">
+      {/* ❄️ GLACIER GLOW */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(44,110,161,0.22),transparent_65%)]" />
+
+      {/* CONTENT */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
+        <div className="space-y-8">
+
+          {/* LOGO */}
+          <div className="flex justify-center">
             <motion.img
               ref={logoRef}
               src={logo}
-              alt="VEDC Logo"
-              className={`${LOGO_SIZES.mobile} md:${LOGO_SIZES.md} w-auto object-contain`}
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              alt="EDC Logo"
+              className={`${LOGO_SIZES.mobile} md:${LOGO_SIZES.md} w-auto object-contain drop-shadow-[0_0_30px_rgba(44,110,161,0.45)]`}
+              whileHover={{ scale: 1.08 }}
             />
           </div>
 
+          {/* TITLE */}
           <motion.h1
             ref={titleRef}
-            className="text-2xl sm:text-5xl md:text-6xl font-extrabold text-[#D6D6DB] tracking-tight leading-tight"
+            className="
+              text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight
+              bg-clip-text text-transparent
+              bg-gradient-to-b from-[#D6D6DB] to-[#8A9BB4]
+            "
           >
             Inspire. Empower. Innovate.
           </motion.h1>
 
+          {/* SUBTITLE */}
           <motion.p
             ref={subtitleRef}
-            className="text-sm sm:text-lg md:text-xl text-[#AFB7C7] max-w-2xl mx-auto px-2 leading-relaxed"
+            className="text-sm sm:text-lg md:text-xl text-[#AFB7C7] max-w-2xl mx-auto leading-relaxed"
           >
-            We Are A Community Of Entrepreneurs, Innovators, and Dreamers Who Are Passionate About Shaping the Future.
+            A community of entrepreneurs, innovators, and dreamers shaping the future of startups.
           </motion.p>
 
+          {/* BUTTONS */}
           <motion.div
             ref={buttonsRef}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-2"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            {/* Primary Button: Glacier Gradient */}
+            {/* PRIMARY */}
             <motion.button
-              onClick={() => scrollToSection('#projects')}
-              className="group relative inline-flex items-center justify-center rounded-xl font-semibold text-white bg-gradient-to-r from-[#2C6EA1] via-[#667B98] to-[#8A9BB4] hover:brightness-110 shadow-[0_8px_30px_rgba(44,110,161,0.2)] 
-              px-5 py-2 text-sm sm:text-base sm:px-7 sm:py-3 w-[90%] max-w-[260px] sm:w-auto"
-              whileHover={{ scale: 1.05 }}
+              onClick={() => scrollToSection('#events-campaigns')}
+              className="
+                group inline-flex items-center gap-2 rounded-xl font-semibold text-white
+                bg-[#2C6EA1]
+                shadow-[0_0_35px_rgba(44,110,161,0.45)]
+                px-7 py-3
+                hover:bg-[#667B98]
+                transition-colors
+              "
+              whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span className="flex items-center gap-2">
-                View Events
-                <motion.span animate={{ x: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
-                  <ArrowRight size={18} />
-                </motion.span>
-              </span>
+              View Events
+              <motion.span
+                animate={{ x: [0, 6, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+              >
+                <ArrowRight size={18} />
+              </motion.span>
             </motion.button>
 
-            {/* Secondary Button: Frosted Glass */}
+            {/* SECONDARY */}
             <motion.button
               onClick={() => scrollToSection('#about')}
-              className="rounded-xl font-semibold text-[#D6D6DB] bg-white/5 border border-[#8A9BB4]/30 hover:bg-white/10 backdrop-blur-sm
-              px-5 py-2 text-sm sm:text-base sm:px-7 sm:py-3 w-[90%] max-w-[260px] sm:w-auto"
-              whileHover={{ scale: 1.05 }}
+              className="
+                rounded-xl px-7 py-3 font-semibold
+                text-[#D6D6DB]
+                border border-[#8A9BB4]/30
+                bg-white/5 backdrop-blur-sm
+                hover:bg-white/10
+                transition-colors
+              "
+              whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.95 }}
             >
               About Us
             </motion.button>
           </motion.div>
+
         </div>
       </div>
     </section>

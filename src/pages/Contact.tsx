@@ -74,7 +74,7 @@ const Contact = () => {
 
       {/* FIXED INFRASTRUCTURE: Background Grid */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-30">
-        <Starfield gridColor="#8A9BB4" speed={0.15} />
+        {/* <Starfield gridColor="#8A9BB4" speed={0.15} /> */}
       </div>
 
       <div className="container mx-auto px-4 pt-40 pb-20 relative z-10">
@@ -159,8 +159,19 @@ const Contact = () => {
             </div>
             <div className="text-center py-10 px-6 mt-10 border-t border-[#8A9BB4]/10 relative z-10">
         <p className="text-[#8A9BB4] font-medium tracking-wide">
-          Contact: Chief Of Relations <span className="text-[#D6D6DB] font-bold">Rajvee Pardeshi</span> <span className="text-[#2C6EA1]">+91 7218122005</span>
-        </p>
+  <span className="text-lg md:text-xl font-semibold">
+    Contact
+  </span>
+  <br />
+  Chief Of Relations <br />
+  <span className="text-[#D6D6DB] font-bold">
+    Rajvee Pardeshi :
+  </span>{' '}
+  <span className="text-[#2C6EA1]">
+    +91 7218122005
+  </span>
+</p>
+
       </div>
           </motion.div>
 
