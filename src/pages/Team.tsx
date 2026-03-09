@@ -33,6 +33,7 @@ import atharvaPhoto from '../assets/team/AtharvaKhode.png';
 
 /* ================= CARD COMPONENT ================= */
 
+
 const AvengersCard = ({
   name,
   role,

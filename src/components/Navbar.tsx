@@ -63,7 +63,7 @@ const Navbar = () => {
                 href={item.path}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors duration-200 animate-pulse"
+                className="text-sm font-medium text-white/80 hover:text-white transition-colors duration-200"
               >
                 {item.label}
               </a>
@@ -102,7 +102,7 @@ const Navbar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsOpen(false)}
-                  className="text-cyan-400 text-base font-semibold animate-pulse"
+                  className="text-white text-base opacity-80"
                 >
                   {item.label}
                 </a>
